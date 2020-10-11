@@ -42,7 +42,6 @@
 		A89A36DE2532FE1F0021BEEC /* SearchMoviesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A36DD2532FE1F0021BEEC /* SearchMoviesInteractor.swift */; };
 		A89A36EC253300C30021BEEC /* SearchMoviesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A36EB253300C30021BEEC /* SearchMoviesRouter.swift */; };
 		A89A36F2253305520021BEEC /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A36F1253305520021BEEC /* HeaderView.swift */; };
-		A89A36FA253306D60021BEEC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A36F9253306D60021BEEC /* SearchViewController.swift */; };
 		A89A37042533424D0021BEEC /* SearchAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A37032533424D0021BEEC /* SearchAlgorithm.swift */; };
 		A89A370A25334C400021BEEC /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A370925334C400021BEEC /* CacheManager.swift */; };
 		A89A3711253372670021BEEC /* MovieDetailsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A3710253372670021BEEC /* MovieDetailsProtocol.swift */; };
@@ -59,7 +58,6 @@
 		A89A3765253396120021BEEC /* MovieDetailsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A3764253396120021BEEC /* MovieDetailsModuleBuilder.swift */; };
 		A89A376E253398E80021BEEC /* MovieDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A376D253398E80021BEEC /* MovieDetailsRouter.swift */; };
 		A8C5500C25305568008DF989 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C5500B25305568008DF989 /* AppDelegate.swift */; };
-		A8C5501025305568008DF989 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C5500F25305568008DF989 /* ViewController.swift */; };
 		A8C550152530556F008DF989 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8C550142530556F008DF989 /* Assets.xcassets */; };
 		A8C550182530556F008DF989 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8C550162530556F008DF989 /* LaunchScreen.storyboard */; };
 		A8C550232530556F008DF989 /* AssignmentBMSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C550222530556F008DF989 /* AssignmentBMSTests.swift */; };
@@ -119,7 +117,6 @@
 		A89A36DD2532FE1F0021BEEC /* SearchMoviesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMoviesInteractor.swift; sourceTree = "<group>"; };
 		A89A36EB253300C30021BEEC /* SearchMoviesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMoviesRouter.swift; sourceTree = "<group>"; };
 		A89A36F1253305520021BEEC /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		A89A36F9253306D60021BEEC /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A89A37032533424D0021BEEC /* SearchAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAlgorithm.swift; sourceTree = "<group>"; };
 		A89A370925334C400021BEEC /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		A89A3710253372670021BEEC /* MovieDetailsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsProtocol.swift; sourceTree = "<group>"; };
@@ -137,7 +134,6 @@
 		A89A376D253398E80021BEEC /* MovieDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsRouter.swift; sourceTree = "<group>"; };
 		A8C5500825305568008DF989 /* AssignmentBMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AssignmentBMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C5500B25305568008DF989 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A8C5500F25305568008DF989 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A8C550142530556F008DF989 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A8C550172530556F008DF989 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A8C550192530556F008DF989 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -401,7 +397,6 @@
 			isa = PBXGroup;
 			children = (
 				A89A36CE2532F75E0021BEEC /* SearchMoviesVC.swift */,
-				A89A36F9253306D60021BEEC /* SearchViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -619,7 +614,6 @@
 			isa = PBXGroup;
 			children = (
 				A8C5500B25305568008DF989 /* AppDelegate.swift */,
-				A8C5500F25305568008DF989 /* ViewController.swift */,
 				A8C550142530556F008DF989 /* Assets.xcassets */,
 				A8C550162530556F008DF989 /* LaunchScreen.storyboard */,
 				A8C550192530556F008DF989 /* Info.plist */,
@@ -763,8 +757,6 @@
 				A844D1352531B547007EB139 /* URLRequestConvertible.swift in Sources */,
 				A89A36A42532E71C0021BEEC /* ImageDownloader.swift in Sources */,
 				A89A368C2532CF140021BEEC /* MoviesInteractor.swift in Sources */,
-				A89A36FA253306D60021BEEC /* SearchViewController.swift in Sources */,
-				A8C5501025305568008DF989 /* ViewController.swift in Sources */,
 				A89A36F2253305520021BEEC /* HeaderView.swift in Sources */,
 				A89A37042533424D0021BEEC /* SearchAlgorithm.swift in Sources */,
 				A89A36EC253300C30021BEEC /* SearchMoviesRouter.swift in Sources */,
