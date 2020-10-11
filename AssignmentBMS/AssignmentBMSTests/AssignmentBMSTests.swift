@@ -2,7 +2,7 @@
 //  AssignmentBMSTests.swift
 //  AssignmentBMSTests
 //
-//  Created by D2k on 09/10/20.
+//  Created by Ajay on 09/10/20.
 //  Copyright © 2020 Ajay Bhanushali. All rights reserved.
 //
 
