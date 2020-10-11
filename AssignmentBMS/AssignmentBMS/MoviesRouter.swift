@@ -12,13 +12,12 @@ final class MoviesRouter: MoviesRouterInput {
     weak var viewController: UIViewController?
     
     func showMovieDetails(with movie: Movie) {
-        let movieDetailsVC = MovieDetailsModuleBuilder().buildModule(with: movie)
-        viewController?.navigationController?.pushViewController(movieDetailsVC, animated: true)
+//        let movieDetailsVC = MovieDetailsModuleBuilder().buildModule(with: movie)
+//        viewController?.navigationController?.pushViewController(movieDetailsVC, animated: true)
     }
     
     func openSearchView(with viewModel: MoviesViewModel) {
-        let searchMoviesVC = SearchMoviesModuleBuilder().buildModule(with: viewModel)
-//        viewController?.present(searchMoviesVC, animated: true)
-        viewController?.navigationController?.pushViewController(searchMoviesVC, animated: true)
+//        let searchMoviesVC = SearchMoviesModuleBuilder().buildModule(with: viewModel)
+//        viewController?.navigationController?.pushViewController(searchMoviesVC, animated: true)
     }
 }
