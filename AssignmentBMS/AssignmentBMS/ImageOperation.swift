@@ -2,7 +2,7 @@
 //  ImageOperation.swift
 //  AssignmentBMS
 //
-//  Created by D2k on 11/10/20.
+//  Created by Ajay on 11/10/20.
 //  Copyright © 2020 Ajay Bhanushali. All rights reserved.
 //
 
