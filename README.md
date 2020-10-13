@@ -22,24 +22,25 @@ Movies is a simple to show movies, search movies using "starts with binary searc
 Things taken care at the development.
 
 1. Modular: I have tried to split the design in views and hence implemented each of the view object in a UIView class. So that it can be used anywhere from a tableviewcell to collectionview cell to any viewcontroller's view. 
-2. Gitable
-3. Discardable
+2. Gitable: Tried to maintain sanity of modularity using git branches with the concept of having to generic, feature[s], UI[s] based branching.
+3. Discardable: Using VIPER, any part of the code can be discarded.
 
 ## Requirements
 
-- iOS 9.0+
-- Xcode 11.0+
-- Swift 3.0+
+- iOS 8.0, 9.0+
+- Xcode 11.0, 12.0+
+- Swift 5.0+
 
 ## Meta
 
-Ajay Bhanushali – [LinkedIn](https://www.linkedin.com/in/ajaybhanushali/) – ajayrbhanushali@gmail.com
+Ajay Bhanushali – [LinkedIn](https://www.linkedin.com/in/ajaybhanushali/) || [Medium] || [GitHub](https://github.com/AjayBhanushali) || ajayrbhanushali@gmail.com
 
 Distributed under the MIT license. See ``LICENSE`` for more information.
 
 [GitHub](https://github.com/AjayBhanushali)
 
 [swift-image]:https://img.shields.io/badge/swift-3.0-orange.svg
+[Medium]:https://medium.com/@ajayrbhanushali
 [swift-url]: https://swift.org/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: LICENSE
