@@ -31,7 +31,6 @@ final class SearchMoviesPresenter: SearchMoviesModuleInput, SearchMoviesViewOutp
     }
     
     func onViewDidLoad() {
-        
         if let movies = CacheManager.shared.fetchAllMovies() {
             self.searchResultViewModel = MoviesViewModel(_movies: movies)
             self.view?.displayMovies(with: self.searchResultViewModel)

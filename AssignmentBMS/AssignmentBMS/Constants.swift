@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-//MARK: String Constants
 enum Strings {
     static let moviesDBTitle = "Movies DB"
     static let placeholder = "Search movie name..."
@@ -19,7 +18,13 @@ enum Strings {
     static let retry = "Retry"
     static let error = "Error"
     static let close = "close"
+    
     static let recentSearch = "Recently Searched Movies"
+    
+    static let synopsis = "Synopsis"
+    static let reviews = "Reviews"
+    static let similarMovies = "Similar Movies"
+    static let cast = "Cast"
 }
 
 enum APP_FONT_SIZE: Float {
@@ -42,18 +47,25 @@ enum APP_FONT_STYLE: String {
 
 enum APP_IMAGES: String {
     case SEARCH = "Search"
+    case DISCLOSURE = "Disclosure"
+}
+
+enum APP_COLOR: String {
+    case SUB_THEME = "70c295"
+    case THEME = "3ca5dd"
 }
     
 enum Constants {
     static let screenWidth: CGFloat = UIScreen.main.bounds.width
     static let defaultSpacing: CGFloat = 1
-    static let numberOfColumns: CGFloat = 1
+    static let defaultPadding: CGFloat = 8
+    static let numberOfColumns: CGFloat = 2
+    static let defaultRadius: CGFloat = 10
     static let defaultPageNum: Int = 0
     static let defaultTotalCount: Int = 0
     static let defaultPageSize: Int = 20
 }
 
-//MARK: ViewState
 public enum ViewState: Equatable {
     case none
     case loading

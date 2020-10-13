@@ -13,17 +13,27 @@ class MovieCardView: UIView {
     // MARK: View Properties
     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont(with: .MEDIUM, of: .TITLE)
+        titleLabel.textColor = .appBlack()
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont(with: .MEDIUM, of: .SUB_TITLE)
         return titleLabel
     }()
     
     lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(with: .SEARCH)
         imageView.layer.masksToBounds = true
         return imageView
+    }()
+    
+    lazy var bookButton: UIButton = {
+        let bookButton = UIButton()
+        bookButton.setTitle("Book", for: .normal)
+        bookButton.setTitleColor(.appWhite(), for: .normal)
+        bookButton.backgroundColor = UIColor(hex: APP_COLOR.THEME.rawValue)
+        bookButton.titleLabel?.font = UIFont(with: .MEDIUM, of: .SUB_TITLE)
+        return bookButton
     }()
     
     // MARK: Data Properties
@@ -49,15 +59,28 @@ class MovieCardView: UIView {
     
     // MARK: Private Custom Methods
     private func prepareView() {
-        backgroundColor = .yellow
-        
         addSubview(photoImageView)
-        photoImageView.pinEdgesToSuperview()
+        photoImageView.pinEdgesEquallyToSuperview(atrributes: [.top, .leading, .trailing], constant: Constants.defaultPadding)
+        photoImageView.pin(attribute: .height, toView: photoImageView, toAttribute: .width, multiplier: 1.5, constant: 0)
+        photoImageView.giveCorner(radius: Constants.defaultRadius)
         
         addSubview(titleLabel)
-        titleLabel.pinEdgesToSuperview()
+        titleLabel.pinTo(atrribute: .top, toView: photoImageView, toAttribute: .bottom, constant: Constants.defaultSpacing)
+        titleLabel.pinEdgesEquallyToSuperview(atrributes: [.leading, .trailing], constant: Constants.defaultPadding)
+        
+        addSubview(bookButton)
+        bookButton.pinTo(atrribute: .top, toView: titleLabel, toAttribute: .bottom, constant: Constants.defaultPadding/2)
+        bookButton.pinEdgesEquallyToSuperview(atrributes: [.leading, .trailing], constant: Constants.defaultPadding*2)
+        bookButton.pinEdgesEquallyToSuperview(atrributes: [.bottom], constant: Constants.defaultPadding)
+        bookButton.giveCorner(radius: Constants.defaultRadius)
     }
     
+    // MARK: Methods
+    /// display movies
+    /// - Parameters:
+    ///   - imageURL: link for image
+    ///   - size: size for the image
+    ///   - indexPath: indexPath of list
     func configure(imageURL: URL, size: CGSize, indexPath: IndexPath) {
         photoImageView.loadImage(with: imageURL, size: size, indexPath: indexPath)
     }

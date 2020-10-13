@@ -8,17 +8,23 @@
 
 import Foundation
 
+/// To cache Movies
+/// Used to cache searched movies
 class CacheManager {
-    
+    // MARK: Properties
     private let cache = NSCache<NSString, StructWrapper<Movie>>()
     private var keys = [Int]()
     
     static let shared = CacheManager()
     
+    // MARK: Init Methods
     private init() {
         cache.countLimit = 5
     }
     
+    // MARK: Methods
+    /// To insert movie in cache
+    /// - Parameter movie: movie object
     func insert(movie: Movie) {
         if keys.contains(movie.id!) {
             return
@@ -29,9 +35,12 @@ class CacheManager {
         }
         
         cache.setObject(StructWrapper(movie), forKey: movie.id!.description as NSString)
-        keys.append(movie.id!) //insert(movie.id!)
+        keys.append(movie.id!)
     }
     
+    /// To fetch movie by ID
+    /// - Parameter id: movie's id
+    /// - Returns: movie for the given id
     func getMovie(for id: Int) -> Movie? {
         if let movie = cache.object(forKey: id.description as NSString) {
             print("The object is still cached")
@@ -42,6 +51,8 @@ class CacheManager {
         }
     }
     
+    /// To fetch all the movies
+    /// - Returns: array of movies if available
     func fetchAllMovies() -> [Movie]? {
         var movies: [Movie] = []
         guard !keys.isEmpty else {
@@ -55,6 +66,8 @@ class CacheManager {
         return movies
     }
     
+    /// Remove Movie
+    /// - Parameter id: movie's id
     func removeMovie(for id: Int) {
         if let index = keys.firstIndex(of: id) {
             keys.remove(at: index)

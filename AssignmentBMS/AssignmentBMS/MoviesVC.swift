@@ -17,8 +17,9 @@ final class MoviesVC: UIViewController {
     lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         let spacing = Constants.defaultSpacing
-        let itemSize: CGFloat = (UIScreen.main.bounds.width - (Constants.numberOfColumns - spacing) - 2) / Constants.numberOfColumns
-        layout.itemSize = CGSize(width: itemSize, height: 50)
+        let itemWidth: CGFloat = (UIScreen.main.bounds.width - (Constants.numberOfColumns - spacing) - 2) / Constants.numberOfColumns
+        let itemHeight: CGFloat = (itemWidth - Constants.defaultPadding*2) * 1.5 + 67
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         layout.minimumInteritemSpacing = spacing
         layout.minimumLineSpacing = spacing
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
@@ -27,7 +28,7 @@ final class MoviesVC: UIViewController {
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewLayout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .appBackground()
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,8 +38,9 @@ final class MoviesVC: UIViewController {
     //MARK: ViewController Lifecycle
     override func loadView() {
         view = UIView()
-        view.backgroundColor = .white
-        navigationItem.title = ""//Strings.moviesDBTitle
+        view.backgroundColor = .appBackground()
+        navigationItem.title = Strings.moviesDBTitle
+        setNavbarTransculent()
     }
     
     override func viewDidLoad() {
@@ -127,18 +129,21 @@ extension MoviesVC: UICollectionViewDataSource {
             return cell
         }
         
+        let imageWidth = collectionViewLayout.itemSize.width
+        let imageSize = CGSize(width: imageWidth, height: imageWidth*1.5)
+        
         guard cell.cellView != nil else {
             let cardView = MovieCardView(frame: .zero)
             cell.cellView = cardView
             cell.cellView?.movie = viewModel.movieAt(indexPath.item)
             if let imageURL = viewModel.posterURL(indexPath.item) {
-                cell.cellView?.configure(imageURL: imageURL, size: collectionViewLayout.itemSize, indexPath: indexPath)
+                cell.cellView?.configure(imageURL: imageURL, size: imageSize, indexPath: indexPath)
             }
             return cell
         }
         
         if let imageURL = viewModel.posterURL(indexPath.item) {
-            cell.cellView?.configure(imageURL: imageURL, size: collectionViewLayout.itemSize, indexPath: indexPath)
+            cell.cellView?.configure(imageURL: imageURL, size: imageSize, indexPath: indexPath)
         }
         cell.cellView?.movie = moviesViewModel?.movieAt(indexPath.item)
         return cell
@@ -148,8 +153,13 @@ extension MoviesVC: UICollectionViewDataSource {
 }
 
 extension MoviesVC: UICollectionViewDelegateFlowLayout {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let denominator: CGFloat = 50 //your offset treshold
+        let alpha = min(1, scrollView.contentOffset.y / denominator)
+        setNavbar(backgroundColorAlpha: alpha)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("Test")
         presenter.didSelectMovie(at: indexPath.item)
     }
     
@@ -188,5 +198,27 @@ extension MoviesVC: UICollectionViewDelegateFlowLayout {
         default:
             assert(false, "Unexpected element kind")
         }
+    }
+}
+
+extension UIApplication {
+    var statusView: UIView? {
+        if #available(iOS 13.0, *) {
+            let tag = 38482458385
+            if let statusBar = self.keyWindow?.viewWithTag(tag) {
+                return statusBar
+            } else {
+                let statusBarView = UIView(frame: UIApplication.shared.statusBarFrame)
+                statusBarView.tag = tag
+
+                self.keyWindow?.addSubview(statusBarView)
+                return statusBarView
+            }
+        } else {
+            if responds(to: Selector(("statusBar"))) {
+                return value(forKey: "statusBar") as? UIView
+            }
+        }
+        return nil
     }
 }

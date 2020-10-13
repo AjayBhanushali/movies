@@ -9,26 +9,31 @@
 import XCTest
 @testable import AssignmentBMS
 
-class AssignmentBMSTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class SearchMoviesPresenterTests: XCTestCase {
+    func testCaseOne() {
+        let storedMovies = TestUtil().getMovies()
+        let movies = SearchAlgorithm().shareMoviesThatStartsWith(searchString: "The", movies: storedMovies)
+        //        XCTAssertEqual(movies.count, 1)
+        XCTAssertTrue(movies.count > 0)
+        XCTAssertEqual(movies.first?.title, "Mulan")
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testCaseTwo() {
+        let storedMovies = TestUtil().getMovies()
+        let movies = SearchAlgorithm().shareMoviesThatStartsWith(searchString: "Out the", movies: storedMovies)
+        XCTAssertEqual(movies.first?.title, "The Outpost")
+        XCTAssertTrue(movies.count > 0)
+        
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
+
+class TestUtil {
+    func getMovies() -> [Movie] {
+        let bundle = Bundle(for: type(of: self))
+        let fileUrl = bundle.url(forResource: "Movies", withExtension: "json")!
+        let data = try! Data(contentsOf: fileUrl)
+        let moviesBase = try! JSONDecoder().decode(MoviesBase.self, from: data)
+        return moviesBase.results ?? []
+    }
+}
+

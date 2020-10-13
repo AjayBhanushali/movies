@@ -31,8 +31,8 @@ final class SearchMoviesVC: UIViewController {
     lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         let spacing = Constants.defaultSpacing
-        let itemSize: CGFloat = (UIScreen.main.bounds.width - (Constants.numberOfColumns - spacing) - 2) / Constants.numberOfColumns
-        layout.itemSize = CGSize(width: itemSize, height: 50)
+        let itemSize: CGFloat = (UIScreen.main.bounds.width - (1 - spacing) - 2)
+        layout.itemSize = CGSize(width: itemSize, height: 56)
         layout.minimumInteritemSpacing = spacing
         layout.minimumLineSpacing = spacing
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
@@ -41,7 +41,7 @@ final class SearchMoviesVC: UIViewController {
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewLayout)
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .appBackground()
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,13 +51,14 @@ final class SearchMoviesVC: UIViewController {
     //MARK: ViewController Lifecycle
     override func loadView() {
         view = UIView()
-        view.backgroundColor = .yellow
+        view.backgroundColor = .appBackground()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         presenter.onViewDidLoad()
+        setNavbarTransculent()
     }
     
     private func setupViews() {
@@ -82,7 +83,7 @@ final class SearchMoviesVC: UIViewController {
     private func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.pinEdgesToSuperview()
-        collectionView.registerCell(GenericCollectionViewCell<MovieCardView>.self)
+        collectionView.registerCell(GenericCollectionViewCell<MovieListView>.self)
         collectionView.register(HeaderView.self, ofKind: UICollectionView.elementKindSectionHeader)
     }
 }
@@ -116,7 +117,8 @@ extension SearchMoviesVC: SearchMoviesViewInput {
     
     func resetViews() {
         moviesViewModel = nil
-        collectionView.reloadData()
+        searchText = ""
+        presenter.onViewDidLoad()
     }
 }
 
@@ -129,26 +131,27 @@ extension SearchMoviesVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as GenericCollectionViewCell<MovieCardView>
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as GenericCollectionViewCell<MovieListView>
         
         guard let viewModel = moviesViewModel else {
             return cell
         }
         
+        let itemSize = CGSize(width: 40, height: 40)
+        
         guard cell.cellView != nil else {
-            let cardView = MovieCardView(frame: .zero)
+            let cardView = MovieListView(frame: .zero)
             cell.cellView = cardView
             cell.cellView?.movie = viewModel.movieAt(indexPath.item)
             if let imageURL = viewModel.posterURL(indexPath.item) {
-                cell.cellView?.configure(imageURL: imageURL, size: collectionViewLayout.itemSize, indexPath: indexPath)
+                cell.cellView?.configure(imageURL: imageURL, size: itemSize, indexPath: indexPath)
             }
             return cell
         }
-        
-        if let imageURL = viewModel.posterURL(indexPath.item) {
-            cell.cellView?.configure(imageURL: imageURL, size: collectionViewLayout.itemSize, indexPath: indexPath)
-        }
         cell.cellView?.movie = moviesViewModel?.movieAt(indexPath.item)
+        if let imageURL = viewModel.posterURL(indexPath.item) {
+            cell.cellView?.configure(imageURL: imageURL, size: itemSize, indexPath: indexPath)
+        }
         return cell
     }
     
@@ -156,6 +159,12 @@ extension SearchMoviesVC: UICollectionViewDataSource {
 }
 
 extension SearchMoviesVC: UICollectionViewDelegateFlowLayout {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let denominator: CGFloat = 50 //your offset treshold
+        let alpha = min(1, scrollView.contentOffset.y / denominator)
+        setNavbar(backgroundColorAlpha: alpha)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelectMovie(at: indexPath.item)
     }
@@ -172,7 +181,7 @@ extension SearchMoviesVC: UICollectionViewDelegateFlowLayout {
     
     //MARK: UICollectionViewHeader
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if viewState == .loading && moviesViewModel != nil {
+        if searchText.isEmpty && moviesViewModel != nil {
             return CGSize(width: Constants.screenWidth, height: 50)
         }
         return CGSize.zero
@@ -190,8 +199,17 @@ extension SearchMoviesVC: UICollectionViewDelegateFlowLayout {
 }
 
 extension SearchMoviesVC: UISearchBarDelegate {
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard !searchText.isEmpty || searchText != self.searchText else { return }
+        guard !searchText.isEmpty else {
+            self.searchText = searchText
+            presenter.onViewDidLoad()
+            return
+        }
+        
+        guard searchText != self.searchText else {
+            return
+        }
         
         workItem.perform(after: 1.0) { [weak self] in
             guard let self = self else { return }

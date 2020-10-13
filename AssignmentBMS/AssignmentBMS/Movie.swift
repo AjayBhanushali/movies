@@ -73,3 +73,14 @@ struct Movie: Codable, Hashable {
 	}
 
 }
+
+extension Movie {
+    func posterURL() -> URL? {
+        
+        guard let path = poster_path, let url = URL(string: APIConstants.movieDBImagesBaseURL + path) else {
+            return nil
+        }
+        
+        return url
+    }
+}

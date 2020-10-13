@@ -69,7 +69,7 @@ final class MoviesPresenter: MoviesModuleInput, MoviesViewOutput, MoviesInteract
             }
 
             DispatchQueue.main.async { [unowned self] in
-                self.view?.displayMovies(with: moviesViewModel)
+                self.view?.displayMovies(with: self.moviesViewModel)
                 self.view?.changeViewState(.content)
             }
         } else {

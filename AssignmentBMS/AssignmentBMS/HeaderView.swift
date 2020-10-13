@@ -13,7 +13,7 @@ final class HeaderView: UICollectionReusableView, Reusable {
     // MARK: View Properties
     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.font = UIFont(with: .BOLD, of: .HEADER1)
+        titleLabel.font = UIFont(with: .MEDIUM, of: .SUB_TITLE)
         titleLabel.textAlignment = .left
         titleLabel.text = Strings.recentSearch
         return titleLabel
@@ -28,8 +28,10 @@ final class HeaderView: UICollectionReusableView, Reusable {
         fatalError("init?(coder:) not implemented")
     }
     
+    // MARK: Private Custom Methods
     private func setup() {
+        backgroundColor = .appSecBackground()
         addSubview(titleLabel)
-        titleLabel.pinEdgesToSuperview()
+        titleLabel.pinEdgesEquallyToSuperview(atrributes: [.leading, .trailing, .top, .bottom], constant: Constants.defaultPadding)
     }
 }
