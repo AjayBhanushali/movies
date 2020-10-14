@@ -3,7 +3,7 @@
 
 [![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](http://cocoapods.org/pods/LFAlertController)
 
-Movies is a simple to show movies, search movies using "starts with binary search algorithm", see movie details such as movie synopsis, cast, reviews, similar movies.
+Movies is a simple app to show movies, search movies using "starts with binary search algorithm", see movie details such as movie synopsis, cast, reviews, similar movies.
 
 ## Features
 
