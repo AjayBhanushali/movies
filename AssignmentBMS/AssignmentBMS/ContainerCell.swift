@@ -39,7 +39,7 @@ class ContainerCell: UITableViewCell {
     
     // MARK: Private custom methods
     func prepareView() {
-        addSubview(collectionView)
+        contentView.addSubview(collectionView)
         collectionView.pinEdgesToSuperview()
         collectionView.registerCell(GenericCollectionViewCell<BackDropView>.self)
         collectionView.registerCell(GenericCollectionViewCell<SynonpsisView>.self)
