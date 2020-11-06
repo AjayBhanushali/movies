@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 final class MovieDetailsVC: UIViewController {
     
@@ -18,6 +19,7 @@ final class MovieDetailsVC: UIViewController {
                 return
             }
             title = movieDetailsViewModel.movie?.title
+            
         }
     }
     var headers = ["", Strings.synopsis, Strings.cast, Strings.reviews, Strings.similarMovies]
@@ -37,13 +39,14 @@ final class MovieDetailsVC: UIViewController {
         view = UIView()
         view.backgroundColor = .white
         navigationItem.title = ""//Strings.moviesDBTitle
+        setNavbarTransculent()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         presenter.getMovieDetails()
-        self.setNavbarTransculent()
+        setNavbarTransculent()
     }
     
     private func setupViews() {
@@ -87,6 +90,7 @@ extension MovieDetailsVC: MovieDetailsViewInput {
 
 extension MovieDetailsVC: UITableViewDataSource, UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.isKind(of: UITableView.self) else { return }
         let denominator: CGFloat = 50 //your offset treshold
         let alpha = min(1, scrollView.contentOffset.y / denominator)
         setNavbar(backgroundColorAlpha: alpha)
@@ -342,6 +346,23 @@ extension MovieDetailsVC: UICollectionViewDataSource, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.tag == 4 {
             presenter.didSelectMovie(at: indexPath.item)
+        } else if collectionView.tag == 0 {
+            configureVideoPlayer()
         }
+    }
+    
+    private func configureVideoPlayer() {
+        var aurl = "https://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v"
+        guard let url = URL(string: aurl) else {
+                    return
+                }
+                // Create an AVPlayer, passing it the HTTP Live Streaming URL.
+                let player = AVPlayer(url: url)
+                let controller = AVPlayerViewController()
+                controller.allowsPictureInPicturePlayback = true
+                controller.player = player
+                present(controller, animated: true) {
+                    controller.player?.play()
+                }
     }
 }
