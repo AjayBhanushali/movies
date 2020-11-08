@@ -22,6 +22,7 @@ final class MovieDetailsIneractor: MovieDetailsInteractorInput {
     //MARK: Load Movies
     func loadMovieDetails(for id: Int) {
         loadSynopsis(for: id)
+        loadVideos(for: id)
         loadReviews(for: id, pageNum: 1)
         loadCredits(for: id)
         loadMovies(for: id, pageNum: 1)
@@ -34,6 +35,19 @@ final class MovieDetailsIneractor: MovieDetailsInteractorInput {
             switch result {
             case let .success(response):
                 self.presenter?.getSynpopsisSuccess(response)
+            case let .failure(error):
+                self.presenter?.getError(error)
+            }
+        }
+    }
+    
+    private func loadVideos(for id: Int) {
+        let endPoint = MovieDBAPI.getVideosFor(id: id)
+        network.dataRequest(endPoint, objectType: MovieVideosBase.self) { [weak self] (result: Result<MovieVideosBase, NetworkError>) in
+            guard let self = self else { return }
+            switch result {
+            case let .success(response):
+                self.presenter?.getMovieVideosisSuccess(response)
             case let .failure(error):
                 self.presenter?.getError(error)
             }

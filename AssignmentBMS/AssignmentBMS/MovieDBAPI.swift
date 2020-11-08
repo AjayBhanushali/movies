@@ -14,6 +14,7 @@ enum MovieDBAPI: APIEndPoint, URLRequestConvertible {
     case getMovieReviews(id: Int, page: Int)
     case getCredits(id: Int)
     case getSimilarMovies(id: Int, page: Int)
+    case getVideosFor(id: Int)
 }
 
 extension MovieDBAPI {
@@ -25,7 +26,7 @@ extension MovieDBAPI {
     var method: HTTPMethod {
         return .get
     }
-    
+
     var path: String {
         switch self {
         case .getMoviesFor:
@@ -38,6 +39,8 @@ extension MovieDBAPI {
             return "/3/movie/" + id.description + "/credits"
         case let .getSimilarMovies(id, _):
             return "/3/movie/" + id.description + "/similar"
+        case let .getVideosFor(id):
+            return "/3/movie/" + id.description + "/videos"
         }
         
     }

@@ -36,11 +36,16 @@ extension MovieDetailsPresenter: MovieDetailsViewOutput {
 }
 
 extension MovieDetailsPresenter: MovieDetailsInteractorOutput {
+    
     func getSynpopsisSuccess(_ synopsisBase: MovieSynopsisBase) {
         self.movieDetailsViewModel.synopsis = synopsisBase
         DispatchQueue.main.async {
             self.view?.reloadView(at: 1, viewModel: self.movieDetailsViewModel)
         }
+    }
+    
+    func getMovieVideosisSuccess(_ movieVideosBase: MovieVideosBase) {
+        self.movieDetailsViewModel.videos = movieVideosBase.results
     }
     
     func getCreditsSuccess(_ creditsBase: Credits) {

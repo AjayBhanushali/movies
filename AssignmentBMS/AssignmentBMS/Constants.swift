@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 enum Strings {
-    static let moviesDBTitle = "Movies DB"
+    static let moviesDBTitle = "Movies"
     static let placeholder = "Search movie name..."
     
     static let cancel = "Cancel"
