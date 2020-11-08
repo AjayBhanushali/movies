@@ -40,13 +40,17 @@ final class MoviesVC: UIViewController {
         view = UIView()
         view.backgroundColor = .appBackground()
         navigationItem.title = Strings.moviesDBTitle
-        setNavbarTransculent()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         presenter.getMovies()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        scrollViewDidScroll(collectionView) // to set nav bar color
     }
     
     private func setupViews() {
@@ -154,8 +158,13 @@ extension MoviesVC: UICollectionViewDataSource {
 
 extension MoviesVC: UICollectionViewDelegateFlowLayout {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offSetY = scrollView.contentOffset.y
+        guard offSetY != 0 else {
+            setNavbarTransculent()
+            return
+        }
         let denominator: CGFloat = 50 //your offset treshold
-        let alpha = min(1, scrollView.contentOffset.y / denominator)
+        let alpha = min(1, offSetY / denominator)
         setNavbar(backgroundColorAlpha: alpha)
     }
     
@@ -198,13 +207,14 @@ extension MoviesVC: UICollectionViewDelegateFlowLayout {
         default:
             assert(false, "Unexpected element kind")
         }
+        return UICollectionReusableView()
     }
 }
 
 extension UIApplication {
     var statusView: UIView? {
         if #available(iOS 13.0, *) {
-            let tag = 38482458385
+            let tag = 38482
             if let statusBar = self.keyWindow?.viewWithTag(tag) {
                 return statusBar
             } else {
