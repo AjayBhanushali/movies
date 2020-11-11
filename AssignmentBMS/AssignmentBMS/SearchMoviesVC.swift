@@ -195,6 +195,7 @@ extension SearchMoviesVC: UICollectionViewDelegateFlowLayout {
         default:
             assert(false, "Unexpected element kind")
         }
+        return UICollectionReusableView()
     }
 }
 

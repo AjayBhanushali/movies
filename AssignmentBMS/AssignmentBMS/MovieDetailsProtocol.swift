@@ -29,6 +29,7 @@ protocol MovieDetailsViewOutput: AnyObject {
 
 protocol MovieDetailsInteractorOutput: AnyObject {
     func getSynpopsisSuccess(_ synopsisBase: MovieSynopsisBase)
+    func getMovieVideosisSuccess(_ movieVideosBase: MovieVideosBase)
     func getReviewsSuccess(_ reviewsBase: MovieReviewsBase)
     func getCreditsSuccess(_ creditsBase: Credits)
     func getMoviesSuccess(_ moviesBase: MoviesBase)

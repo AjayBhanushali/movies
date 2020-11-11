@@ -12,6 +12,7 @@ struct MovieDetailsViewModel {
     var movie: Movie?
     var synopsis: MovieSynopsisBase?
     var credits: Credits?
+    var videos: [MovieVideo]?
     var reviews: [MovieReview] = []
     var similarMovies: [Movie] = []
 }
