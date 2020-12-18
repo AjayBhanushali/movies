@@ -352,7 +352,7 @@ extension MovieDetailsVC: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     private func configureVideoPlayer() {
-        var aurl = "https://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v"
+        let aurl = "https://jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v"
         guard let url = URL(string: aurl) else {
                     return
                 }
