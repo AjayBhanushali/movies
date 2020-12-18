@@ -9,7 +9,7 @@
 import Foundation
 
 final class MovieDetailsPresenter: MovieDetailsModuleInput {
-    var view: MovieDetailsViewInput?
+    weak var view: MovieDetailsViewInput?
     var interactor: MovieDetailsInteractorInput!
     var router: MovieDetailsRouterInput!
     var movie: Movie

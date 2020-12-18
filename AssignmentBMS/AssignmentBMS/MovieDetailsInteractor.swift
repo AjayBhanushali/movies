@@ -10,8 +10,6 @@ import Foundation
 
 final class MovieDetailsIneractor: MovieDetailsInteractorInput {
     
-    
-
     let network: NetworkService
     weak var presenter: MovieDetailsInteractorOutput?
     
